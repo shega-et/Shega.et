@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Contact Us - Shega International</title>
+ <link rel="stylesheet" href="shega.css">
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <a href="index.html" class="logo">
+        <img src="Screenshot 2025-09-05 151705.jpg" alt="Shega International Logo">
+      </a>
+      <button class="menu-toggle" id="menuToggle">&#9776;</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="news.html">News & Insights</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="contact.html" class="active">Contact Us</a></li>
+        <li>
+          <select id="langSwitcher">
+            <option value="en">EN</option>
+            <option value="am">AM</option>
+            <option value="fr">FR</option>
+            <option value="ar">AR</option>
+          </select>
+        </li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section class="page-header">
+      <h1 id="contactTitle">Contact Us</h1>
+    </section>
+    <section class="contact-section">
+      <form class="contact-form" autocomplete="off">
+        <label for="name" id="labelName">Name</label>
+        <input type="text" id="name" name="name" placeholder="Your Name" required>
+        <label for="email" id="labelEmail">Email</label>
+        <input type="email" id="email" name="email" placeholder="Your Email" required>
+        <label for="message" id="labelMessage">Message</label>
+        <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
+        <button type="submit" class="btn-primary" id="submitBtn">Send Message</button>
+      </form>
+      <div class="contact-info">
+        <h2>Our Office</h2>
+        <p>Addis Ababa, Ethiopia</p>
+        <p>Email: <a href="mailto:info@shegainternational.com">info@shegainternational.com</a></p>
+        <p>Phone: +251 123 456 789</p>
+      </div>
+    </section>
+    <div id="formMessage"></div>
+  </main>
+  <footer>
+    <div class="footer-content">
+      <img src="assets/images/logo.png" alt="Shega International Logo" class="footer-logo">
+      <p>&copy; 2025 Shega International. All rights reserved.</p>
+      <a href="mailto:info@shegainternational.com">info@shegainternational.com</a>
+    </div>
+  </footer>
+  <script src="script.js"></script>
+  <script src="en.js"></script>
+  <script src="shega.js"></script>
+</body>
+</html>

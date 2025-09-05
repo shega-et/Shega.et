@@ -4,19 +4,47 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Shega | Addis Ababa Route Finder</title>
+  <link rel="stylesheet" href="shega.css">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
 </head>
 <body>
-  <header>
     <div class="container">
+  <header>
+    <nav class="navbar">
+      <a href="index.html" class="logo">
+        <img src="Screenshot 2025-09-05 151705.jpg" alt="Shega International Logo">
+      </a>
+      <button class="menu-toggle" id="menuToggle">&#9776;</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="news.html">News & Insights</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li>
+          <select id="langSwitcher">
+            <option value="en">EN</option>
+            <option value="am">AM</option>
+            <option value="fr">FR</option>
+            <option value="ar">AR</option>
+          </select>
+        </li>
+      </ul>
+    </nav>
+    <section class="hero">
+      <div class="hero-content">
+        <div class="container">
       <h1><i class="fas fa-bus"></i> Shega</h1>
       <p>Find direct public transport routes in Addis Ababa</p>
     </div>
+        <p id="heroSubtitle">Empowering Innovation & Excellence Across Borders</p>
+        <a href="about.html" class="btn-primary" id="heroLearnMore">Learn More</a>
+      </div>
+    </section>
   </header>
-
-  <div class="container">
     <main>
       <div class="search-card">
         <div class="form-section">
@@ -82,4 +110,5 @@
   </footer>
   <script src="script.js"></script>
 </body>
+<script src="shega.js"></script>
 </html>
