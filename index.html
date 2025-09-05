@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shega | Addis Ababa Route Finder</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1><i class="fas fa-bus"></i> Shega</h1>
+      <p>Find direct public transport routes in Addis Ababa</p>
+    </div>
+  </header>
+
+  <div class="container">
+    <main>
+      <div class="search-card">
+        <div class="form-section">
+          <div class="input-group">
+            <label for="from"><i class="fas fa-map-marker-alt"></i> From:</label>
+            <select id="from">
+              <option value="">Select departure point</option>
+            </select>
+          </div>
+          
+          <button class="swap-button" id="swapButton" title="Swap destinations">
+            <i class="fas fa-exchange-alt"></i>
+          </button>
+          
+          <div class="input-group">
+            <label for="to"><i class="fas fa-flag"></i> To:</label>
+            <select id="to">
+              <option value="">Select destination</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="form-section">
+          <button id="findRoute" class="button-primary">
+            <i class="fas fa-route"></i> Find Route
+          </button>
+          
+          <div class="filter-group">
+            <label for="filter">Filter by:</label>
+            <select id="filter">
+              <option value="all">All Routes</option>
+              <option value="cheapest">Cheapest</option>
+              <option value="fastest">Fastest</option>
+              <option value="direct">Direct Only</option>
+              <option value="transfer">With Transfers</option>
+            </select>
+          </div>
+        </div>
+        
+        <div id="error" class="error"></div>
+      </div>
+      
+      <div id="loading" class="loading">
+        <div class="loading-spinner"></div>
+        <p>Finding the best routes for you...</p>
+      </div>
+      
+      <div id="resultsSection" style="display: none;">
+        <div class="results-header">
+          <h2>Available Routes</h2>
+          <div id="resultsCount" class="results-count">0 routes found</div>
+        </div>
+        
+        <div id="results" class="results"></div>
+      </div>
+    </main>
+  </div>
+
+  <footer>
+    <div class="container">
+<p>© 2025 Shega | Made with ❤️ 360 coders</p>
+    </div>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
