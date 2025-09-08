@@ -1,114 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Shega | Addis Ababa Route Finder</title>
-  <link rel="stylesheet" href="shega.css">
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shega.et - Addis Ababa Transport Route Finder</title>
+    <meta name="description" content="Find public transport routes in Addis Ababa. Fast, accurate, and bilingual (English & Amharic).">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="icon.png">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 </head>
 <body>
-    <div class="container">
-  <header>
-    <nav class="navbar">
-      <a href="index.html" class="logo">
-        <img src="Screenshot 2025-09-05 151705.jpg" alt="Shega International Logo">
-      </a>
-      <button class="menu-toggle" id="menuToggle">&#9776;</button>
-      <ul class="nav-links" id="navLinks">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About Us</a></li>
-        <li><a href="services.html">Services</a></li>
-        <li><a href="news.html">News & Insights</a></li>
-        <li><a href="events.html">Events</a></li>
-        <li><a href="contact.html">Contact Us</a></li>
-        <li>
-          <select id="langSwitcher">
-            <option value="en">EN</option>
-            <option value="am">AM</option>
-            <option value="fr">FR</option>
-            <option value="ar">AR</option>
-          </select>
-        </li>
-      </ul>
-    </nav>
-    <section class="hero">
-      <div class="hero-content">
-        <div class="container">
-      <h1><i class="fas fa-bus"></i> Shega</h1>
-      <p>Find direct public transport routes in Addis Ababa</p>
-    </div>
-        <p id="heroSubtitle">Empowering Innovation & Excellence Across Borders</p>
-        <a href="about.html" class="btn-primary" id="heroLearnMore">Learn More</a>
-      </div>
-    </section>
-  </header>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="icon.png" alt="Shega.et Logo">
+                <span>Shega.et</span>
+            </div>
+            <div class="language-switcher">
+                <button id="lang-en" aria-label="Switch to English">EN</button>
+                <button id="lang-am" aria-label="ወደ አማርኛ ቋንቋ ቀይር">AM</button>
+            </div>
+        </nav>
+    </header>
     <main>
-      <div class="search-card">
-        <div class="form-section">
-          <div class="input-group">
-            <label for="from"><i class="fas fa-map-marker-alt"></i> From:</label>
-            <select id="from">
-              <option value="">Select departure point</option>
-            </select>
-          </div>
-          
-          <button class="swap-button" id="swapButton" title="Swap destinations">
-            <i class="fas fa-exchange-alt"></i>
-          </button>
-          
-          <div class="input-group">
-            <label for="to"><i class="fas fa-flag"></i> To:</label>
-            <select id="to">
-              <option value="">Select destination</option>
-            </select>
-          </div>
-        </div>
-        
-        <div class="form-section">
-          <button id="findRoute" class="button-primary">
-            <i class="fas fa-route"></i> Find Route
-          </button>
-          
-          <div class="filter-group">
-            <label for="filter">Filter by:</label>
-            <select id="filter">
-              <option value="all">All Routes</option>
-              <option value="cheapest">Cheapest</option>
-              <option value="fastest">Fastest</option>
-              <option value="direct">Direct Only</option>
-              <option value="transfer">With Transfers</option>
-            </select>
-          </div>
-        </div>
-        
-        <div id="error" class="error"></div>
-      </div>
-      
-      <div id="loading" class="loading">
-        <div class="loading-spinner"></div>
-        <p>Finding the best routes for you...</p>
-      </div>
-      
-      <div id="resultsSection" style="display: none;">
-        <div class="results-header">
-          <h2>Available Routes</h2>
-          <div id="resultsCount" class="results-count">0 routes found</div>
-        </div>
-        
-        <div id="results" class="results"></div>
-      </div>
-    </main>
-  </div>
+        <section class="hero">
+            <h1 data-i18n="heroTitle">Find Your Way in Addis Ababa</h1>
+            <p data-i18n="heroSubtitle">Explore 100+ public transport routes. Fast, easy, and bilingual!</p>
+            <form id="search-form" aria-label="Route search">
+                <div class="form-group">
+                    <label for="departure" data-i18n="departure">Departure</label>
+                    <input type="text" id="departure" name="departure" autocomplete="off" placeholder="e.g., Megenagna" required>
+                </div>
+                <div class="form-group">
+                    <label for="destination" data-i18n="destination">Destination</label>
+                    <input type="text" id="destination" name="destination" autocomplete="off" placeholder="e.g., Stadium" required>
+                </div>
+                <button type="submit" id="search-btn" data-i18n="searchBtn">Search Routes</button>
+            </form>
+        </section>
+        <section class="featured-routes">
+            <h2 data-i18n="featuredRoutes">Featured Routes</h2>
+            <div id="featured-list"></div>
+        </section>
+        <section class="results-section" id="results-section" aria-live="polite">
+            <h2 data-i18n="resultsTitle">Founded Routes</h2>
+            <div id="results"></div>
+        </section>
 
-  <footer>
-    <div class="container">
-<p>© 2025 Shega | Made with ❤️ 360 coders</p>
-    </div>
-  </footer>
-  <script src="script.js"></script>
+        <aside id="route-details-modal" role="dialog" aria-modal="true" aria-labelledby="details-title" tabindex="-1">
+            <button class="modal-close" id="close-modal" aria-label="Close">&times;</button>
+            <div id="route-details"></div>
+        </aside>
+        <section id="map-section">
+            <div id="map"></div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 Shega.et &mdash; <span data-i18n="footerDesc">Addis Ababa Route Finder. Inspired by the community.</span></p>
+    </footer>
+    <script src="routes.js"></script>
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="script.js"></script>
 </body>
-<script src="shega.js"></script>
 </html>

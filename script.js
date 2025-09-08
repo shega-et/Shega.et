@@ -1,622 +1,317 @@
-// ==== STOP LIST ====
-const stops = [
-  "Bole Medhanealem", "Meskel Square", "Mexico Square", "Piazza", "Mercato", "Gotera", "Kality", "Sarbet",
-  "CMC", "Leghar", "Ayat", "Bole Airport", "Summit", "Bole Bulbula", "Gergi", "Edna Mall", "Lideta",
-  "Sar Bet", "Bambis", "Riche", "Bole Michael", "Gerji", "Urael", "Shola", "Betel"
-];
+// Shega.et - Main JS Logic
 
-// ==== ROUTE LIST ====
-const routes = [
-  // 🚐 ROUTE LIST (Addis Ababa Public Transport)
-  {
-    id: 49,
-    name: "Bole - Piazza",
-    start: "Bole Medhanealem",
-    end: "Piazza",
-    vehicle: "Minibus",
-    stops: [0, 1, 3],
-    fare: 15,
-    time: 45,
-    frequency: "Every 5-10 mins"
-  },
-  {
-    id: 50,
-    name: "Bole - Mexico Square",
-    start: "Bole Medhanealem",
-    end: "Mexico Square",
-    vehicle: "Minibus",
-    stops: [0, 15, 2],
-    fare: 12,
-    time: 35,
-    frequency: "Every 7-12 mins"
-  },
-  {
-    id: 45,
-    name: "Bole - Mercato",
-    start: "Bole Medhanealem",
-    end: "Mercato",
-    vehicle: "Minibus",
-    stops: [0, 15, 4],
-    fare: 15,
-    time: 40,
-    frequency: "Every 10 mins"
-  },
-  {
-    id: 31,
-    name: "Meskel Square - Gotera",
-    start: "Meskel Square",
-    end: "Gotera",
-    vehicle: "Minibus",
-    stops: [1, 5],
-    fare: 8,
-    time: 15,
-    frequency: "Every 5 mins"
-  },
-  {
-    id: 33,
-    name: "Meskel Square - Kality",
-    start: "Meskel Square",
-    end: "Kality",
-    vehicle: "Bus",
-    stops: [1, 5, 6],
-    fare: 10,
-    time: 35,
-    frequency: "Every 15 mins"
-  },
-  {
-    id: 60,
-    name: "Mercato - Kality",
-    start: "Mercato",
-    end: "Kality",
-    vehicle: "Bus",
-    stops: [4, 8, 6],
-    fare: 8,
-    time: 45,
-    frequency: "Every 15-20 mins"
-  },
-  {
-    id: 12,
-    name: "Mercato - Sar Bet",
-    start: "Mercato",
-    end: "Sar Bet",
-    vehicle: "Minibus",
-    stops: [4, 17],
-    fare: 10,
-    time: 25,
-    frequency: "Every 10 mins"
-  },
-  {
-    id: 77,
-    name: "Ayat - Piazza",
-    start: "Ayat",
-    end: "Piazza",
-    vehicle: "Minibus",
-    stops: [10, 0, 1, 3],
-    fare: 20,
-    time: 70,
-    frequency: "Every 10-15 mins"
-  },
-  {
-    id: 90,
-    name: "Leghar - Gotera",
-    start: "Leghar",
-    end: "Gotera",
-    vehicle: "Minibus",
-    stops: [9, 8, 5],
-    fare: 8,
-    time: 15,
-    frequency: "Every 5-7 mins"
-  },
-  {
-    id: 22,
-    name: "Summit - Piazza",
-    start: "Summit",
-    end: "Piazza",
-    vehicle: "Minibus",
-    stops: [12, 13, 14, 0, 1, 3],
-    fare: 18,
-    time: 55,
-    frequency: "Every 12-15 mins"
-  },
-  {
-    id: 52,
-    name: "CMC - Leghar",
-    start: "CMC",
-    end: "Leghar",
-    vehicle: "Minibus",
-    stops: [8, 9],
-    fare: 14,
-    time: 40,
-    frequency: "Every 15 mins"
-  },
-  {
-    id: 53,
-    name: "Ayat - Betel",
-    start: "Ayat",
-    end: "Betel",
-    vehicle: "Minibus",
-    stops: [10, 24],
-    fare: 20,
-    time: 55,
-    frequency: "Every 10 mins"
-  },
-  {
-    id: 23,
-    name: "Ayat - Mexico Square",
-    start: "Ayat",
-    end: "Mexico Square",
-    vehicle: "Minibus",
-    stops: [10, 8, 0, 1, 2],
-    fare: 17,
-    time: 50,
-    frequency: "Every 10 mins"
-  },
-  {
-    id: 24,
-    name: "Kality - Edna Mall",
-    start: "Kality",
-    end: "Edna Mall",
-    vehicle: "Minibus",
-    stops: [6, 5, 0, 15],
-    fare: 16,
-    time: 45,
-    frequency: "Every 15 mins"
-  },
-  {
-    id: 25,
-    name: "Shola - Mercato",
-    start: "Shola",
-    end: "Mercato",
-    vehicle: "Minibus",
-    stops: [23, 22, 1, 3, 4],
-    fare: 19,
-    time: 60,
-    frequency: "Every 20 mins"
-  },
-  {
-    id: 26,
-    name: "Leghar - Bambis",
-    start: "Leghar",
-    end: "Bambis",
-    vehicle: "Minibus",
-    stops: [9, 18],
-    fare: 10,
-    time: 25,
-    frequency: "Every 8 mins"
-  },
-  {
-    id: 101,
-    name: "Betel - Lideta",
-    start: "Betel",
-    end: "Lideta",
-    vehicle: "Minibus",
-    stops: [24, 22, 17, 16],
-    fare: 14,
-    time: 35,
-    frequency: "Every 10 mins"
-  },
-  {
-    id: 102,
-    name: "Bole Airport - Shola",
-    start: "Bole Airport",
-    end: "Shola",
-    vehicle: "Minibus",
-    stops: [11, 0, 1, 22, 23],
-    fare: 18,
-    time: 50,
-    frequency: "Every 12 mins"
-  },
-  {
-    id: 103,
-    name: "Sarbet - Summit",
-    start: "Sarbet",
-    end: "Summit",
-    vehicle: "Bus",
-    stops: [7, 5, 8, 12],
-    fare: 16,
-    time: 45,
-    frequency: "Every 15 mins"
-  },
-  {
-    id: 104,
-    name: "Gerji - Meskel Square",
-    start: "Gerji",
-    end: "Meskel Square",
-    vehicle: "Minibus",
-    stops: [21, 0, 1],
-    fare: 13,
-    time: 30,
-    frequency: "Every 8 mins"
-  },
-  {
-    id: 105,
-    name: "Urael - Mercato",
-    start: "Urael",
-    end: "Mercato",
-    vehicle: "Minibus",
-    stops: [22, 1, 3, 4],
-    fare: 15,
-    time: 40,
-    frequency: "Every 10 mins"
-  },
-  {
-    id: 106,
-    name: "Gergi - Mexico Square",
-    start: "Gergi",
-    end: "Mexico Square",
-    vehicle: "Bus",
-    stops: [14, 0, 1, 2],
-    fare: 17,
-    time: 50,
-    frequency: "Every 20 mins"
-  },
-  {
-    id: 107,
-    name: "Bole Michael - Bambis",
-    start: "Bole Michael",
-    end: "Bambis",
-    vehicle: "Minibus",
-    stops: [20, 0, 1, 18],
-    fare: 16,
-    time: 45,
-    frequency: "Every 10-15 mins"
-  },
-  {
-    id: 108,
-    name: "Akaki - Meskel Square",
-    start: "Akaki",
-    end: "Meskel Square",
-    vehicle: "Bus",
-    stops: [6, 5, 1],
-    fare: 20,
-    time: 60,
-    frequency: "Every 20 mins"
-  },
-  {
-    id: 109,
-    name: "Entoto - Mercato",
-    start: "Entoto",
-    end: "Mercato",
-    vehicle: "Minibus",
-    stops: [10, 1, 3, 4],
-    fare: 22,
-    time: 70,
-    frequency: "Every 15 mins"
-  },
-  {
-    id: 110,
-    name: "CMC - Bole Airport",
-    start: "CMC",
-    end: "Bole Airport",
-    vehicle: "Minibus",
-    stops: [8, 0, 11],
-    fare: 14,
-    time: 40,
-    frequency: "Every 10 mins"
-  },
-  {
-    id: 111,
-    name: "Summit - Mexico Square",
-    start: "Summit",
-    end: "Mexico Square",
-    vehicle: "Bus",
-    stops: [12, 0, 1, 2],
-    fare: 18,
-    time: 50,
-    frequency: "Every 12 mins"
-  },
-  {
-    id: 112,
-    name: "Ayat - Gotera",
-    start: "Ayat",
-    end: "Gotera",
-    vehicle: "Minibus",
-    stops: [10, 8, 5],
-    fare: 16,
-    time: 45,
-    frequency: "Every 10 mins"
-  },
-  {
-    id: 113,
-    name: "Betel - Piazza",
-    start: "Betel",
-    end: "Piazza",
-    vehicle: "Minibus",
-    stops: [24, 22, 1, 3],
-    fare: 19,
-    time: 55,
-    frequency: "Every 15 mins"
-  },
-  {
-    id: 114,
-    name: "Bole Bulbula - Leghar",
-    start: "Bole Bulbula",
-    end: "Leghar",
-    vehicle: "Bus",
-    stops: [13, 0, 9],
-    fare: 15,
-    time: 40,
-    frequency: "Every 10-12 mins"
-  },
-  {
-    id: 115,
-    name: "Gergi - Bambis",
-    start: "Gergi",
-    end: "Bambis",
-    vehicle: "Minibus",
-    stops: [14, 0, 1, 18],
-    fare: 17,
-    time: 50,
-    frequency: "Every 10 mins"
-  }
-];
+// ========== Multilingual Support ==========
+const LANGS = ["en", "am"];
+let currentLang = "en";
 
+// UI translations
+const TRANSLATIONS = {
+    heroTitle: {
+        en: "Find Your Way in Addis Ababa",
+        am: "በአዲስ አበባ መንገድ ፈልጉ"
+    },
+    heroSubtitle: {
+        en: "Explore 200+ public transport routes. Fast, easy, and bilingual!",
+        am: "200+ የህዝብ ትራንስፖርት መንገዶችን ያግኙ። ፈጣን፣ ቀላል፣ በሁለት ቋንቋ!"
+    },
+    departure: {
+        en: "Departure",
+        am: "መነሻ"
+    },
+    destination: {
+        en: "Destination",
+        am: "መድረሻ"
+    },
+    searchBtn: {
+        en: "Search Routes",
+        am: "መንገዶችን ፈልግ"
+    },
+    featuredRoutes: {
+        en: "Featured Routes",
+        am: "ተለይተው የቀረቡ መንገዶች"
+    },
+    resultsTitle: {
+        en: "Matching Routes",
+        am: "ተመሳሳይ መንገዶች"
+    },
+    footerDesc: {
+        en: "Addis Ababa Route Finder. Inspired by the community.",
+        am: "የአዲስ አበባ መንገድ ፈላጊ። በማህበረሰቡ መነሻ!"
+    },
+    routeDetails: {
+        en: "Route Details",
+        am: "የመንገዱ ዝርዝር"
+    },
+    stops: {
+        en: "Stops",
+        am: "ማቆሚያዎች"
+    },
+    estimatedTime: {
+        en: "Estimated Time",
+        am: "ግምት የቆይታ ጊዜ"
+    },
+    fare: {
+        en: "Fare",
+        am: "ቅናሽ"
+    },
+    close: {
+        en: "Close",
+        am: "ዝጋ"
+    }
+};
 
-
- 
-
-// ==== DOM CACHE ====
-const fromSelect = document.getElementById("from");
-const toSelect = document.getElementById("to");
-const findButton = document.getElementById("findRoute");
-const swapButton = document.getElementById("swapButton");
-const filterSelect = document.getElementById("filter");
-const resultsDiv = document.getElementById("results");
-const resultsSection = document.getElementById("resultsSection");
-const resultsCount = document.getElementById("resultsCount");
-const errorDiv = document.getElementById("error");
-const loadingDiv = document.getElementById("loading");
-
-let currentResults = null;
-
-// ==== INITIALIZATION ====
-function populateDropdowns() {
-  stops.forEach((name, idx) => {
-    fromSelect.add(new Option(name, idx));
-    toSelect.add(new Option(name, idx));
-  });
-}
-
-function parseTime(route) {
-  return typeof route.time === "number" ? route.time : parseInt(route.time, 10);
-}
-
-function showLoading() {
-  loadingDiv.classList.add("show");
-  resultsSection.style.display = "none";
-  errorDiv.classList.remove("show");
-}
-
-function hideLoading() {
-  loadingDiv.classList.remove("show");
-}
-
-function showError(message) {
-  errorDiv.textContent = message;
-  errorDiv.classList.add("show");
-  resultsSection.style.display = "none";
-}
-
-function clearError() {
-  errorDiv.textContent = "";
-  errorDiv.classList.remove("show");
-}
-
-// ==== ROUTE FINDERS ====
-function findDirectRoutes(fromIdx, toIdx) {
-  return routes.filter(route => {
-    const fromIndex = route.stops.indexOf(fromIdx);
-    const toIndex = route.stops.indexOf(toIdx);
-    return fromIndex !== -1 && toIndex !== -1 && fromIndex < toIndex;
-  });
-}
-
-function findTransferRoutes(fromIdx, toIdx) {
-  const transferOptions = [];
-
-  const startingRoutes = routes.filter(route => route.stops.includes(fromIdx));
-  const endingRoutes = routes.filter(route => route.stops.includes(toIdx));
-
-  startingRoutes.forEach(firstRoute => {
-    firstRoute.stops.forEach((stopIdx, index) => {
-      if (stopIdx === fromIdx || index <= firstRoute.stops.indexOf(fromIdx)) return;
-
-      endingRoutes.forEach(secondRoute => {
-        if (firstRoute.id === secondRoute.id) return;
-
-        const transferIndex = secondRoute.stops.indexOf(stopIdx);
-        const toIndex = secondRoute.stops.indexOf(toIdx);
-
-        if (transferIndex !== -1 && toIndex !== -1 && transferIndex < toIndex) {
-          transferOptions.push({
-            firstLeg: firstRoute,
-            transferAt: stops[stopIdx],
-            transferAtIdx: stopIdx,
-            secondLeg: secondRoute,
-            totalFare: firstRoute.fare + secondRoute.fare,
-            totalTime: parseTime(firstRoute) + parseTime(secondRoute)
-          });
-        }
-      });
+function setLang(lang) {
+    if (!LANGS.includes(lang)) return;
+    currentLang = lang;
+    document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        if (TRANSLATIONS[key]) el.textContent = TRANSLATIONS[key][lang];
     });
-  });
+    // Update placeholders
+    document.getElementById("departure").placeholder = lang === "am" ? "ለምሳሌ፡ መገናኛ" : "e.g., Megenagna";
+    document.getElementById("destination").placeholder = lang === "am" ? "ለምሳሌ፡ ስታዲየም" : "e.g., Stadium";
+    // Update active state
+    document.getElementById("lang-en").classList.toggle("active", lang === "en");
+    document.getElementById("lang-am").classList.toggle("active", lang === "am");
+    // Redraw featured & results
+    renderFeatured();
+    renderResults(window._lastResults || []);
+}
+document.getElementById("lang-en").onclick = () => setLang("en");
+document.getElementById("lang-am").onclick = () => setLang("am");
 
-  return transferOptions;
+// ========== Featured Routes ==========
+function renderFeatured() {
+    const featuredDiv = document.getElementById("featured-list");
+    featuredDiv.innerHTML = "";
+    // Pick first 4 featured routes
+    const featured = ROUTES.slice(0, 4);
+    featured.forEach(route => {
+        const div = document.createElement("div");
+        div.className = "featured-route";
+        div.tabIndex = 0;
+        div.setAttribute("role", "button");
+        div.innerHTML = `
+            <span class="route-title">${route.name[currentLang]}</span>
+            <span class="route-meta">${route.departure[currentLang]} &rarr; ${route.destination[currentLang]}</span>
+            <span class="route-meta">${TRANSLATIONS.fare[currentLang]}: ${route.fare}</span>
+        `;
+        div.onclick = () => showRouteDetails(route);
+        div.onkeydown = e => { if (e.key === "Enter") showRouteDetails(route); };
+        featuredDiv.appendChild(div);
+    });
+}
+// ========== Search & Results ==========
+document.getElementById("search-form").onsubmit = function(e) {
+    e.preventDefault();
+    const dep = document.getElementById("departure").value.trim().toLowerCase();
+    const dest = document.getElementById("destination").value.trim().toLowerCase();
+    if (!dep || !dest) return;
+    // Match if departure/destination is in route's stops or endpoints
+    const results = ROUTES.filter(route => {
+        const depNames = [route.departure.en, route.departure.am, ...route.stops.map(s => s.name.en), ...route.stops.map(s => s.name.am)];
+        const destNames = [route.destination.en, route.destination.am, ...route.stops.map(s => s.name.en), ...route.stops.map(s => s.name.am)];
+        return depNames.some(n => n.toLowerCase().includes(dep)) && destNames.some(n => n.toLowerCase().includes(dest));
+    });
+    window._lastResults = results;
+    renderResults(results);
+    if (results.length > 0) {
+        mapToRoute(results[0]);
+    }
+};
+function highlightMatch(text, query) {
+    if (!query) return text;
+    const regex = new RegExp(`(${query})`, "gi");
+    return text.replace(regex, '<mark>$1</mark>');
+}
+// ========== Loading Indicator ==========
+function showLoading(show = true) {
+    let loader = document.getElementById("results-loader");
+    if (!loader) {
+        loader = document.createElement("div");
+        loader.id = "results-loader";
+        loader.innerHTML = `
+            <div class="loader-spinner"></div>
+            <span class="loader-text">${TRANSLATIONS.searchBtn[currentLang]}...</span>
+        `;
+        loader.style.textAlign = "center";
+        loader.style.padding = "2em 0";
+        document.getElementById("results-section").prepend(loader);
+    }
+    loader.querySelector('.loader-text').textContent = TRANSLATIONS.searchBtn[currentLang] + "...";
+    loader.style.display = show ? "block" : "none";
 }
 
-function findAllRoutes(fromIdx, toIdx) {
-  return {
-    direct: findDirectRoutes(fromIdx, toIdx),
-    transfer: findTransferRoutes(fromIdx, toIdx)
-  };
+// ========== Search & Results (updated with loading) ==========
+document.getElementById("search-form").onsubmit = function(e) {
+    e.preventDefault();
+    const dep = document.getElementById("departure").value.trim().toLowerCase();
+    const dest = document.getElementById("destination").value.trim().toLowerCase();
+    if (!dep || !dest) return;
+    showLoading(true); // Show loading
+    setTimeout(() => { // Simulate network/search delay for better UX
+        // Match if departure/destination is in route's stops or endpoints
+        const results = ROUTES.filter(route => {
+            const depNames = [route.departure.en, route.departure.am, ...route.stops.map(s => s.name.en), ...route.stops.map(s => s.name.am)];
+            const destNames = [route.destination.en, route.destination.am, ...route.stops.map(s => s.name.en), ...route.stops.map(s => s.name.am)];
+            return depNames.some(n => n.toLowerCase().includes(dep)) && destNames.some(n => n.toLowerCase().includes(dest));
+        });
+        window._lastResults = results;
+        showLoading(false); // Hide loading
+        renderResults(results);
+        if (results.length > 0) {
+            mapToRoute(results[0]);
+        }
+    }, 600); // 600ms loading for effect
+};
+
+function highlightMatch(text, query) {
+    if (!query) return text;
+    const regex = new RegExp(`(${query})`, "gi");
+    return text.replace(regex, '<mark>$1</mark>');
 }
 
-// ==== RENDERING ====
-function renderRoutePath(route, fromIdx, toIdx) {
-  let html = '<div class="route-path">';
-  route.stops.forEach(stopIdx => {
-    const isFrom = stopIdx === fromIdx;
-    const isTo = stopIdx === toIdx;
-    const isHighlight = isFrom || isTo;
+function renderResults(results) {
+    const depQuery = document.getElementById("departure").value.trim().toLowerCase();
+    const destQuery = document.getElementById("destination").value.trim().toLowerCase();
+    const section = document.getElementById("results-section");
+    const resultsDiv = document.getElementById("results");
+    if (!results.length) {
+        section.classList.remove("active");
+        resultsDiv.innerHTML = "";
+        return;
+    }
+    section.classList.add("active");
+    resultsDiv.innerHTML = "";
 
-    html += `
-      <div class="route-stop">
-        <div class="stop-icon"></div>
-        <div class="stop-name ${isHighlight ? 'highlight' : ''}">
-          ${isFrom ? '<i class="fas fa-map-marker-alt"></i> ' : ''}
-          ${isTo ? '<i class="fas fa-flag"></i> ' : ''}
-          ${stops[stopIdx]}
-        </div>
-      </div>
+    results.forEach((route, idx) => {
+        // Highlight matches
+        const dep = highlightMatch(route.departure[currentLang], depQuery);
+        const dest = highlightMatch(route.destination[currentLang], destQuery);
+
+        // Create card
+        const div = document.createElement("div");
+        div.className = "result-card improved";
+        div.tabIndex = 0;
+        div.setAttribute("role", "button");
+        div.innerHTML = `
+            <div class="row-main">
+                <div class="route-icon" style="background:${route.color || "#1365e2"}"></div>
+                <div class="route-info">
+                    <span class="route-title">${route.name[currentLang]}</span>
+                    <div class="route-meta">
+                        <span title="${TRANSLATIONS.departure[currentLang]}">
+                            🚏 ${dep}
+                        </span>
+                        <span title="${TRANSLATIONS.destination[currentLang]}">
+                            🎯 ${dest}
+                        </span>
+                    </div>
+                    <div class="badges">
+                        <span class="badge"><i class="fa fa-clock"></i> ${route.time}</span>
+                        <span class="badge fare"><i class="fa fa-money-bill"></i> ${route.fare}</span>
+                    </div>
+                </div>
+                <button class="expand-btn" aria-label="Show stops" tabindex="0">▼</button>
+            </div>
+            <div class="expandable-stops" style="display:none;">
+                <strong>${TRANSLATIONS.stops[currentLang]}:</strong>
+                <ul>
+                    ${route.stops.map(s => `<li>${s.name[currentLang]}</li>`).join("")}
+                </ul>
+            </div>
+        `;
+        // Expand/collapse stops in place
+        div.querySelector('.expand-btn').onclick = (e) => {
+            const stopsDiv = div.querySelector('.expandable-stops');
+            stopsDiv.style.display = stopsDiv.style.display === "none" ? "block" : "none";
+            e.target.textContent = stopsDiv.style.display === "block" ? "▲" : "▼";
+            e.stopPropagation();
+        };
+        // On card click: show details modal and map
+        div.onclick = (evt) => {
+            if (evt.target.classList.contains('expand-btn')) return;
+            showRouteDetails(route);
+            mapToRoute(route);
+        };
+        // Keyboard accessibility
+        div.onkeydown = e => {
+            if (e.key === "Enter") {
+                showRouteDetails(route);
+                mapToRoute(route);
+            }
+        };
+        resultsDiv.appendChild(div);
+    });
+}
+
+// ========== Route Details Modal ==========
+function showRouteDetails(route) {
+    const modal = document.getElementById("route-details-modal");
+    const details = document.getElementById("route-details");
+    details.innerHTML = `
+        <h3 id="details-title">${route.name[currentLang]}</h3>
+        <p><b>${TRANSLATIONS.departure[currentLang]}:</b> ${route.departure[currentLang]}</p>
+        <p><b>${TRANSLATIONS.destination[currentLang]}:</b> ${route.destination[currentLang]}</p>
+        <p><b>${TRANSLATIONS.estimatedTime[currentLang]}:</b> ${route.time}</p>
+        <p><b>${TRANSLATIONS.fare[currentLang]}:</b> ${route.fare}</p>
+        <hr>
+        <h4>${TRANSLATIONS.stops[currentLang]}:</h4>
+        <ul>
+            ${route.stops.map(s => `<li>${s.name[currentLang]}</li>`).join("")}
+        </ul>
     `;
-  });
-  html += '</div>';
-  return html;
+    modal.classList.add("active");
+    modal.focus();
 }
-
-function renderDirectRoute(route, fromIdx, toIdx) {
-  const card = document.createElement("div");
-  card.className = "card";
-  card.innerHTML = `
-    <h3><span class="card-icon"><i class="fas fa-bus"></i></span> Route ${route.id}: ${route.name}</h3>
-    <div class="card-details">
-      <div class="card-detail"><i class="fas fa-tag"></i> Fare: ${route.fare} ETB</div>
-      <div class="card-detail"><i class="fas fa-clock"></i> Time: ${parseTime(route)} min</div>
-      <div class="card-detail"><i class="fas fa-shuttle-van"></i> ${route.vehicle}</div>
-      <div class="card-detail"><i class="fas fa-history"></i> ${route.frequency}</div>
-    </div>
-    ${renderRoutePath(route, fromIdx, toIdx)}
-  `;
-  return card;
-}
-
-function renderTransferRoute(option, fromIdx, toIdx) {
-  const card = document.createElement("div");
-  card.className = "card transfer-card";
-  card.innerHTML = `
-    <h3><span class="card-icon"><i class="fas fa-exchange-alt"></i></span> Transfer Option</h3>
-    <div class="card-details">
-      <div class="card-detail"><i class="fas fa-tag"></i> Total Fare: ${option.totalFare} ETB</div>
-      <div class="card-detail"><i class="fas fa-clock"></i> Total Time: ${option.totalTime} min</div>
-    </div>
-
-    <h4><i class="fas fa-long-arrow-alt-right"></i> First Leg: Route ${option.firstLeg.id} (${option.firstLeg.name})</h4>
-    ${renderRoutePath(option.firstLeg, fromIdx, option.transferAtIdx)}
-
-    <h4><i class="fas fa-exchange-alt"></i> Transfer at: ${option.transferAt}</h4>
-
-    <h4><i class="fas fa-long-arrow-alt-right"></i> Second Leg: Route ${option.secondLeg.id} (${option.secondLeg.name})</h4>
-    ${renderRoutePath(option.secondLeg, option.transferAtIdx, toIdx)}
-  `;
-  return card;
-}
-
-function renderNoResults() {
-  const noResults = document.createElement("div");
-  noResults.className = "no-results";
-  noResults.innerHTML = `
-    <i class="fas fa-route"></i>
-    <p>No routes found between these locations.</p>
-    <p>Try different destinations or check back later for updates.</p>
-  `;
-  return noResults;
-}
-
-function renderResults(results, filter = "all") {
-  resultsDiv.innerHTML = "";
-  clearError();
-
-  let directRoutes = results.direct || [];
-  let transferRoutes = results.transfer || [];
-  let filteredDirect = [];
-  let filteredTransfer = [];
-
-  switch (filter) {
-    case "cheapest":
-      filteredDirect = [...directRoutes].sort((a, b) => a.fare - b.fare);
-      filteredTransfer = [...transferRoutes].sort((a, b) => a.totalFare - b.totalFare);
-      break;
-    case "fastest":
-      filteredDirect = [...directRoutes].sort((a, b) => parseTime(a) - parseTime(b));
-      filteredTransfer = [...transferRoutes].sort((a, b) => a.totalTime - b.totalTime);
-      break;
-    case "direct":
-      filteredDirect = directRoutes;
-      filteredTransfer = [];
-      break;
-    case "transfer":
-      filteredDirect = [];
-      filteredTransfer = transferRoutes;
-      break;
-    default:
-      filteredDirect = directRoutes;
-      filteredTransfer = transferRoutes;
-  }
-
-  const totalResults = filteredDirect.length + filteredTransfer.length;
-  resultsCount.textContent = `${totalResults} ${totalResults === 1 ? 'route' : 'routes'} found`;
-
-  if (totalResults === 0) {
-    resultsDiv.appendChild(renderNoResults());
-    return;
-  }
-
-  filteredDirect.forEach(route => {
-    resultsDiv.appendChild(renderDirectRoute(route, parseInt(fromSelect.value), parseInt(toSelect.value)));
-  });
-
-  filteredTransfer.forEach(option => {
-    resultsDiv.appendChild(renderTransferRoute(option, parseInt(fromSelect.value), parseInt(toSelect.value)));
-  });
-}
-
-// ==== EVENT HANDLERS ====
-findButton.addEventListener("click", () => {
-  const fromIdx = parseInt(fromSelect.value);
-  const toIdx = parseInt(toSelect.value);
-
-  if (isNaN(fromIdx) || isNaN(toIdx)) {
-    showError("Please select both departure and destination points.");
-    return;
-  }
-
-  if (fromIdx === toIdx) {
-    showError("Departure and destination must be different locations.");
-    return;
-  }
-
-  showLoading();
-
-  // Simulate loading for better UX
-  setTimeout(() => {
-    const results = findAllRoutes(fromIdx, toIdx);
-    currentResults = results;
-
-    hideLoading();
-    resultsSection.style.display = "block";
-    renderResults(results, filterSelect.value);
-  }, 800);
+document.getElementById("close-modal").onclick = () => {
+    document.getElementById("route-details-modal").classList.remove("active");
+};
+document.getElementById("route-details-modal").onclick = e => {
+    if (e.target.id === "route-details-modal") document.getElementById("route-details-modal").classList.remove("active");
+};
+document.addEventListener("keydown", e => {
+    if (e.key === "Escape") document.getElementById("route-details-modal").classList.remove("active");
 });
 
-swapButton.addEventListener("click", () => {
-  const fromValue = fromSelect.value;
-  fromSelect.value = toSelect.value;
-  toSelect.value = fromValue;
-});
-
-filterSelect.addEventListener("change", () => {
-  if (currentResults) {
-    renderResults(currentResults, filterSelect.value);
-  }
-});
-
-// ==== APP STARTUP ====
-function init() {
-  populateDropdowns();
-
-  // Optional: Set default values for testing
-  fromSelect.value = "0"; // Bole Medhanealem
-  toSelect.value = "3";   // Piazza
+// ========== Leaflet Map ==========
+let map, routeLayer, stopMarkers = [];
+function initMap() {
+    map = L.map('map').setView([9.015, 38.755], 12);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution:
+            '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors',
+        maxZoom: 18
+    }).addTo(map);
+}
+function mapToRoute(route) {
+    if (!map) return;
+    // Clear previous
+    if (routeLayer) map.removeLayer(routeLayer);
+    stopMarkers.forEach(m => map.removeLayer(m));
+    stopMarkers = [];
+    // Draw route polyline
+    routeLayer = L.polyline(route.polyline, { color: route.color || "#1365e2", weight: 6, opacity: 0.85 }).addTo(map);
+    // Add stop markers
+    route.stops.forEach((stop, idx) => {
+        const marker = L.marker([stop.lat, stop.lng], {
+            title: stop.name[currentLang]
+        }).addTo(map);
+        marker.bindPopup(`<b>${stop.name[currentLang]}</b>`);
+        stopMarkers.push(marker);
+    });
+    // Fit map to route
+    map.fitBounds(routeLayer.getBounds(), { padding: [30, 30] });
 }
 
-init();
+// ========== Accessibility & SEO ==========
+document.getElementById("search-form").setAttribute("aria-label", TRANSLATIONS.searchBtn[currentLang]);
+
+// ========== On Load ==========
+window.onload = () => {
+    setLang("en");
+    renderFeatured();
+    initMap();
+    // Show first route by default
+    if (ROUTES.length > 0) mapToRoute(ROUTES[0]);
+};
